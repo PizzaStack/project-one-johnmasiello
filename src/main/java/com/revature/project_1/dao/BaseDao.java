@@ -25,9 +25,8 @@ public class BaseDao {
 				.append("SELECT * FROM ")
 				.append(tableName)
 				.append(" WHERE username = ? AND password = ?").toString())) {
-			ps.setString(1, tableName);
-			ps.setString(2, username);
-			ps.setString(3, password);
+			ps.setString(1, username);
+			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (!rs.next())
 				return null;
@@ -56,9 +55,8 @@ public class BaseDao {
 				.append("INSERT INTO ")
 				.append(tableName)
 				.append("(username, password) VALUES (?, ?)").toString())) {
-			ps.setString(1, tableName);
-			ps.setString(2, username);
-			ps.setString(3, password);
+			ps.setString(1, username);
+			ps.setString(2, password);
 			if (ps.executeUpdate() <= 0)
 				return null;
 			ResultSet keys = ps.getGeneratedKeys();

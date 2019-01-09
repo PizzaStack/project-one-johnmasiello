@@ -8,9 +8,10 @@ import com.revature.project_1.model.LoginModel;
 
 public class EmployeeDaoTest {
 	@Test
-	public void testSomething() {
+	public void testAuthenticate() {
 		EmployeeDao dao = new EmployeeDao();
-		LoginModel loginModel = dao.authenticateLogin("john", "secure");
+		LoginModel loginModel = dao.authenticateLogin("john", "secret");
 		Assert.assertNotNull(loginModel);
+		Assert.assertNull(dao.authenticateLogin("john", "wrong password"));
 	}
 }
