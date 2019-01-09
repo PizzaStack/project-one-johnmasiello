@@ -1,0 +1,29 @@
+.main{
+    margin-top: 40px;
+}
+#employee_login{
+    color:blue;
+}
+#home_banner{
+    margin-top: 10%;
+    font-size: 80px;
+    font-weight: bold;
+    color:blue;
+}
+#loginDropDownButton{
+    margin-top: 100px;
+}
+.dropdown-item-extra-space{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+#author {
+    margin-top: 20px;
+}
+
+/* https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_temp_webpage&stacked=h */
+.row.content{
+    height: 80vh;
+    min-height: 500px;
+}
