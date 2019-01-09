@@ -12,6 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <tomcat-version>9.0.0.M6</tomcat-version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
@@ -25,16 +26,46 @@
     </dependency>
     
     <dependency>
+    	<groupId>org.hamcrest</groupId>
+    	<artifactId>hamcrest-junit</artifactId>
+    	<version>2.0.0.0</version>
+    </dependency>
+    
+    <dependency>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>42.2.5</version>
+    </dependency>
+    
+    <dependency>
     	<groupId>org.jetbrains</groupId>
     	<artifactId>annotations</artifactId>
     	<version>16.0.3</version>
     </dependency>
   
-	  <dependency>
-	   <groupId>javax.servlet</groupId>
-	   <artifactId>servlet-api</artifactId>
-	   <version>2.5</version>
-	   <scope>provided</scope>
-		</dependency>
+	 <dependency>
+   <groupId>javax.servlet</groupId>
+   <artifactId>javax.servlet-api</artifactId>
+   <version>3.1.0</version>
+   <scope>provided</scope>
+	</dependency>
+	
+	 <dependency>
+	 	<groupId>org.apache.tomcat.embed</groupId>
+	 	<artifactId>tomcat-embed-core</artifactId>
+	 	<version>${tomcat-version}</version>
+	 </dependency>
+	 
+	 <dependency>
+	 	<groupId>org.apache.tomcat</groupId>
+	 	<artifactId>tomcat-jasper</artifactId>
+	 	<version>${tomcat-version}</version>
+	 </dependency>
+	 
+	 <dependency>
+	 	<groupId>org.apache.tomcat.embed</groupId>
+	 	<artifactId>tomcat-embed-logging-juli</artifactId>
+	 	<version>${tomcat-version}</version>
+	 </dependency>
   </dependencies>
 </project>

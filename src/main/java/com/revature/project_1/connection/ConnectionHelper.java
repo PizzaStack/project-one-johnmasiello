@@ -37,14 +37,18 @@ public class ConnectionHelper {
 	}
 	
 	public Connection getConnection() {
-			try {
-				if (connection == null || connection.isClosed())
+		try {
+			if (connection == null || connection.isClosed()) {
+				Class.forName("org.postgresql.Driver");
 				connection =  DriverManager.getConnection(url, username, password);
-			} catch (SQLException e) {
-				closeConnection();
-				connection = null;
 			}
-			return connection;		
+		} catch (SQLException e) {
+			closeConnection();
+			connection = null;
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		return connection;		
 	}
 	
 	public void closeConnection() {

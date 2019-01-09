@@ -21,8 +21,10 @@ public class BaseDao {
 	@Nullable
 	protected LoginModel authenticateLogin(String username, String password, String tableName) {
 		Connection connection = ConnectionHelper.getinstance().getConnection();
-		try (PreparedStatement ps = connection.prepareStatement(
-				"SELECT * FROM ? WHERE username = ? AND password = ?")) {
+		try (PreparedStatement ps = connection.prepareStatement(new StringBuilder()
+				.append("SELECT * FROM ")
+				.append(tableName)
+				.append(" WHERE username = ? AND password = ?").toString())) {
 			ps.setString(1, tableName);
 			ps.setString(2, username);
 			ps.setString(3, password);
@@ -50,8 +52,10 @@ public class BaseDao {
 	@Nullable
 	protected LoginModel createLogin(String username, String password, String tableName) {
 		Connection connection = ConnectionHelper.getinstance().getConnection();
-		try (PreparedStatement ps = connection.prepareStatement(
-				"INSERT INTO ?(username, password) VALUES (?, ?)")) {
+		try (PreparedStatement ps = connection.prepareStatement(new StringBuilder()
+				.append("INSERT INTO ")
+				.append(tableName)
+				.append("(username, password) VALUES (?, ?)").toString())) {
 			ps.setString(1, tableName);
 			ps.setString(2, username);
 			ps.setString(3, password);
