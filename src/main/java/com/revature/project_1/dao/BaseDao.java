@@ -24,13 +24,14 @@ public class BaseDao {
 		try (PreparedStatement ps = connection.prepareStatement(new StringBuilder()
 				.append("SELECT * FROM ")
 				.append(tableName)
-				.append(" WHERE username = ? AND password = ?").toString())) {
+				.append(" WHERE username = ? AND password = ?").toString(),
+				Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (!rs.next())
 				return null;
-			if (rs.getInt("ID") == NO_LOGIN_ID)
+			if (rs.getInt("id") == NO_LOGIN_ID)
 				throw new Exception("Not a valid login key");
 			return new LoginModel.Builder()
 					.withId(rs.getInt("id"))
@@ -54,13 +55,14 @@ public class BaseDao {
 		try (PreparedStatement ps = connection.prepareStatement(new StringBuilder()
 				.append("INSERT INTO ")
 				.append(tableName)
-				.append("(username, password) VALUES (?, ?)").toString())) {
+				.append("(username, password) VALUES (?, ?)").toString(),
+				Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, username);
 			ps.setString(2, password);
 			if (ps.executeUpdate() <= 0)
 				return null;
 			ResultSet keys = ps.getGeneratedKeys();
-			if (!keys.next() || keys.getInt("ID") == NO_LOGIN_ID)
+			if (!keys.next() || keys.getInt("id") == NO_LOGIN_ID)
 				throw new Exception("Not a valid login key");
 			return new LoginModel.Builder()
 					.withId(keys.getInt("id"))

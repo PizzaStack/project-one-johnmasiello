@@ -23,7 +23,15 @@
 }
 
 /* https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_temp_webpage&stacked=h */
-.row.content{
+.contentMainScreen{
     height: 80vh;
     min-height: 500px;
+}
+
+.my-login-btn {
+    margin-right: 10px;
+}
+
+.login-btn-grp {
+    margin: 25px auto;
 }

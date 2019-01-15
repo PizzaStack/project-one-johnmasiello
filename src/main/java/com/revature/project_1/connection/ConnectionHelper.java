@@ -17,18 +17,29 @@ public class ConnectionHelper {
 	private Connection connection;
 	
 	private final static ConnectionHelper connectionHelper = new ConnectionHelper();
+	private final static boolean IS_WEB_APP = true;
 	
 	protected ConnectionHelper() {
 		Properties properties = new Properties();
-		final String PropertiesLoadFailure = "Connection properties failed to load";
+		String filepath = null;
+		String propertiesLoadFailure = null;
+		
+		if (IS_WEB_APP) {
+			filepath = "C:\\Users\\jmasg\\Documents\\PizzaStack-Workspace\\project-1\\connection.properties";
+			propertiesLoadFailure = "Connection properties failed to load with path "
+					+ filepath;
+		} else {
+			filepath = "connection.properties";
+			propertiesLoadFailure = "Connection properties failed to load";
+		}
 		try {
-			properties.load(new FileInputStream("connection.properties"));
+			properties.load(new FileInputStream(filepath));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new RuntimeException(PropertiesLoadFailure);
+			throw new RuntimeException(propertiesLoadFailure);
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new RuntimeException(PropertiesLoadFailure);
+			throw new RuntimeException(propertiesLoadFailure);
 		}
 
 		url = properties.getProperty("url");
