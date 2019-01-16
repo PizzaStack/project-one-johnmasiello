@@ -1,7 +1,13 @@
 package com.revature.project_1.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonAutoDetect
 public class ReimbursementRequestModel {
 	private int id;
 	private String description;
@@ -13,6 +19,8 @@ public class ReimbursementRequestModel {
 	private int managerId;
 	private byte[] receiptScan;
 	private String receiptName;
+	
+	public ReimbursementRequestModel() {}
 	
 	private ReimbursementRequestModel(int id, String description, double expense, LocalDate date, int employeeId,
 			boolean approved, boolean resolved, int managerId, byte[] receiptScan, String receiptName) {
@@ -173,5 +181,39 @@ public class ReimbursementRequestModel {
 
 	public void setReceiptName(String receiptName) {
 		this.receiptName = receiptName;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ Objects.hash(approved, date, description, employeeId, expense, id, managerId, receiptName, resolved);
+		result = prime * result + Arrays.hashCode(receiptScan);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof ReimbursementRequestModel))
+			return false;
+		ReimbursementRequestModel other = (ReimbursementRequestModel) obj;
+		return approved == other.approved && Objects.equals(date, other.date)
+				&& Objects.equals(description, other.description) && employeeId == other.employeeId
+				&& Double.doubleToLongBits(expense) == Double.doubleToLongBits(other.expense) && id == other.id
+				&& managerId == other.managerId && Objects.equals(receiptName, other.receiptName)
+				&& Arrays.equals(receiptScan, other.receiptScan) && resolved == other.resolved;
+	}
+
+	@Override
+	public String toString() {
+		return "ReimbursementRequestModel [id=" + id + ", description=" + description + ", expense=" + expense
+				+ ", date=" + date + ", employeeId=" + employeeId + ", approved=" + approved + ", resolved=" + resolved
+				+ ", managerId=" + managerId + ", receiptScan=" + Arrays.toString(receiptScan) + ", receiptName="
+				+ receiptName + "]";
 	}
 }

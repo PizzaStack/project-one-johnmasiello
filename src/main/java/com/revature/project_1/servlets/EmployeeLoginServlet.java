@@ -13,9 +13,9 @@ import javax.servlet.http.HttpSession;
 import com.revature.project_1.dao.EmployeeDao;
 import com.revature.project_1.model.LoginModel;
 
-@WebServlet(urlPatterns="/hello",
+@WebServlet(urlPatterns="/login-employee",
 		loadOnStartup=1)
-public class HelloServlet extends HttpServlet {
+public class EmployeeLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String LOGIN_ATTR = "loginToken";
 

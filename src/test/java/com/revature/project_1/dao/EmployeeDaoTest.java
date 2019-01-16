@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.revature.project_1.model.EmployeeInfoModel;
 import com.revature.project_1.model.LoginModel;
+import com.revature.project_1.model.ReimbursementRequestModel;
 
 public class EmployeeDaoTest {
 	private EmployeeDao employeeDao;
@@ -45,5 +46,18 @@ public class EmployeeDaoTest {
 //		Assert.assertNotNull(loginModel);
 //		Assert.assertThat(0, Matchers.lessThan(loginModel.getId()));
 		Assert.assertNull(loginModel);
+	}
+	@Test
+	public void testUpsertReimbursementRequest() {
+		ReimbursementRequestModel model = new ReimbursementRequestModel.Builder()
+				.withDescription("dfgdf")
+				.withApproved(true)
+				.withEmployeeId(1)
+				.withExpense(55.77)
+				.withReceiptName("yyyyy")
+				.build();
+		ReimbursementRequestModel result = employeeDao.upsertReimbursementRequest(model);
+		Assert.assertNotNull(result);
+		Assert.assertThat(0, Matchers.lessThan(result.getId()));
 	}
 }

@@ -64,7 +64,7 @@ function makeAJAXCall() {
             }
         };
         
-        xhttp.open('GET', `../hello?username=${username}&password=${password}`, true);
+        xhttp.open('GET', `../login-employee?username=${username}&password=${password}`, true);
         xhttp.send();
     }
 
@@ -101,11 +101,53 @@ function makeAJAXCall() {
             }
         };
         
-        xhttp.open('GET', `../hello`, true);
+        xhttp.open('GET', '../login-employee', true);
         xhttp.send();
     }
 
     let elem = document.getElementById('employeeLogout');
     if (elem)
         elem.addEventListener('click', logoutEmployee, true);
+})();
+
+(function() {
+    function testMakeReceiptNoImage() {
+        let body = JSON.stringify({description: "travel expense", expense: 250, employeeId: 1, approved: false, resolved: false, receiptScan: null, receiptName: "receipt 1"});
+
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {            
+            if (this.readyState == 4) {
+                switch (this.status) {
+                    case 200:
+                    console.log(this.responseText);
+                    if (this.responseText === 'success')
+                        console.log("SUCCESS making receipt request");
+                    else
+                        console.log("FAIL making receipt request");
+                    break;
+    
+                    case 400:
+                        console.log("FAIL making receipt request");
+                    break;
+                    
+                    case 500:
+                        // window.location.href='../404.html';
+                        break;
+                }
+            }
+        };
+        
+        xhttp.open('POST', '../submit-reimbursement_request', true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(body);
+        // write a json object from the servlet:
+        // https://github.com/FasterXML/jackson-databind
+        // or more generally,
+        // https://github.com/FasterXML/jackson-docs
+    }
+
+    // Test the employee
+    let elem = document.getElementById('testEmployee');
+    if (elem)
+        elem.addEventListener('click', testMakeReceiptNoImage, true);
 })();

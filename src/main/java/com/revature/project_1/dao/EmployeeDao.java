@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -102,9 +103,9 @@ public class EmployeeDao extends BaseDao {
 				.append("receipt_name, receipt_scan) VALUES (?,?,?,?,?,?,?,?) ")
 				.append("ON CONFLICT ON CONSTRAINT requests_pkey ")
 				.append("DO UPDATE SET description=?, expense=?, ")
-				.append("employee_id=?, approved=?, resolved=?, manager_id=?")
-				.append("receipt_name=?, receipt_scan=? WHERE id = ?")
-				.toString())) {
+				.append("employee_id=?, approved=?, resolved=?, manager_id=?,")
+				.append("receipt_name=?, receipt_scan=? WHERE expense_requests.id = ?")
+				.toString(), Statement.RETURN_GENERATED_KEYS)) {
 			
 			ps.setString(1, req.getDescription());
 			ps.setDouble(2, req.getExpense());
