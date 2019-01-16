@@ -1,20 +1,31 @@
 package com.revature.project_1.model;
 
+import java.io.IOException;
+
+import org.apache.tomcat.jni.Address;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class EmployeeInfoModel {
 	private int id;
 	private String email;
 	private String firstname;
 	private String lastname;
 	private AddressModel residentAddress;
-	
-	private EmployeeInfoModel(int id, String email, String firstname, String lastname, AddressModel residentAddress) {
+
+	@JsonCreator
+	private EmployeeInfoModel(@JsonProperty("id")int id, @JsonProperty("email")String email, 
+			@JsonProperty("firstname")String firstname, @JsonProperty("lastname")String lastname, 
+			@JsonProperty("residentAddress")AddressModel residentAddress) {
 		this.id = id;
 		this.email = email;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.residentAddress = residentAddress;
 	}
-	
+
 	public static class Builder {
 		private int id;
 		private String email;

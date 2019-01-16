@@ -33,10 +33,10 @@ public class EmployeeDao extends BaseDao {
 				.append("DO UPDATE SET email = ?, firstname = ?, lastname = ?, ")
 				.append("resident_streetaddress = ?, resident_city = ?, resident_zipcode= ?, ")
 				.append("resident_state = ? ")
-				.append("WHERE personal_info.customer_id = ?")
+				.append("WHERE employee_info.id = ?")
 				.toString())) {
 			
-			ps.setInt(1, employeeInfo.getId());
+			ps.setInt(1, id);
 			ps.setString(2, employeeInfo.getEmail());
 			ps.setString(3, employeeInfo.getFirstname());
 			ps.setString(4, employeeInfo.getLastname());
@@ -52,6 +52,7 @@ public class EmployeeDao extends BaseDao {
 			ps.setString(13, employeeInfo.getResidentAddress().getCity());
 			ps.setString(14, employeeInfo.getResidentAddress().getZipcode());
 			ps.setString(15, employeeInfo.getResidentAddress().getState());
+			ps.setInt(16, id);
 
 			if (ps.executeUpdate() >= 0)
 				return true;

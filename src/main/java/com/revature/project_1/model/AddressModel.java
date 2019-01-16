@@ -1,12 +1,18 @@
 package com.revature.project_1.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AddressModel {
 	private String streetAddress;
 	private String city;
 	private String zipcode;
 	private String state;
 	
-	private AddressModel(String streetAddress, String city, String zipcode, String state) {
+	@JsonCreator
+	private AddressModel(@JsonProperty("streetAddress")String streetAddress, 
+			@JsonProperty("city")String city, 
+			@JsonProperty("zipcode")String zipcode, @JsonProperty("state")String state) {
 		this.streetAddress = streetAddress;
 		this.city = city;
 		this.zipcode = zipcode;

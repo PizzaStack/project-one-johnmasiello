@@ -9,22 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.project_1.dao.EmployeeDao;
-import com.revature.project_1.model.ReimbursementRequestModel;
+import com.revature.project_1.model.EmployeeInfoModel;
 
-@WebServlet(urlPatterns="/submit-reimbursement_request")
-public class ReimbursementSubmissionServlet extends HttpServlet {
+@WebServlet(urlPatterns="/employee-info")
+public class EmployeeInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String receiptId = req.getParameter("receipt_id");
-		ReimbursementRequestModel model = new EmployeeDao().queryReimbursementById(Integer.parseInt(receiptId));
+		// TODO extract employeeId out of the session
+		String employeeId = req.getParameter("employee_id");
+		EmployeeInfoModel model = new EmployeeDao().queryEmployeeInfo(Integer.parseInt(employeeId));
 		try (PrintWriter writer = resp.getWriter()) {
 			if (model == null) 
 				writer.write("{}");
@@ -37,12 +35,14 @@ public class ReimbursementSubmissionServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO get the employeeId from the session
+		int employeeId = 1;
 		ObjectMapper mapper = new ObjectMapper();
 		boolean success = false;
 		try (Reader src = req.getReader()){
-			ReimbursementRequestModel model = mapper.readValue(src, ReimbursementRequestModel.class);
+			EmployeeInfoModel model = mapper.readValue(src, EmployeeInfoModel.class);
 			System.out.println(model);
-			success = new EmployeeDao().upsertReimbursementRequest(model) != null;
+			success = new EmployeeDao().upsertInfo(model, employeeId);
 		} catch (JsonParseException e) {
 			System.out.println(e.getMessage());
 			
@@ -53,4 +53,5 @@ public class ReimbursementSubmissionServlet extends HttpServlet {
 			writer.write(success ? "success" : "failure");
 		} finally {}
 	}
+
 }

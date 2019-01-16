@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect
@@ -20,10 +21,14 @@ public class ReimbursementRequestModel {
 	private byte[] receiptScan;
 	private String receiptName;
 	
-	public ReimbursementRequestModel() {}
+//	public ReimbursementRequestModel() {}
 	
-	private ReimbursementRequestModel(int id, String description, double expense, LocalDate date, int employeeId,
-			boolean approved, boolean resolved, int managerId, byte[] receiptScan, String receiptName) {
+	@JsonCreator
+	private ReimbursementRequestModel(@JsonProperty("id")int id, @JsonProperty("description")String description, 
+			@JsonProperty("expense")double expense, @JsonProperty("date")LocalDate date, 
+			@JsonProperty("employeeId")int employeeId, @JsonProperty("approved")boolean approved, 
+			@JsonProperty("resolved")boolean resolved, @JsonProperty("managerId")int managerId, 
+			@JsonProperty("receiptScan")byte[] receiptScan, @JsonProperty("receiptName")String receiptName) {
 		this.id = id;
 		this.description = description;
 		this.expense = expense;
