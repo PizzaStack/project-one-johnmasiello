@@ -2,6 +2,35 @@ function printJson(jsonObject) {
     Object.keys(jsonObject).forEach(($) => console.log(`${$}: ${jsonObject[$]}`));
 }
 
+(function () {
+    function authenticateEmployee(username, password) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                console.log(this.status);
+                switch (this.status) {
+                    case 200:
+                        if (this.responseText != 'success')
+                        window.location.replace('../index.html');
+                        break;
+
+                    case 400:
+                    console.log("FAIL");
+                    break;
+                    
+                    case 500:
+                        // window.location.href='../404.html';
+                        break;
+                }
+            }
+        };
+        
+        xhttp.open('GET', '../validate-employee', true);
+        xhttp.send();
+    }
+    authenticateEmployee();
+})();
+
 (function() {
     function logoutEmployee(e) {
         let result = window.confirm('Sure you want to log out?');
@@ -41,7 +70,7 @@ function printJson(jsonObject) {
 
 (function() {
     function testMakeReceiptNoImage() {
-        let body = JSON.stringify({description: "travel expense", expense: 250, employeeId: 1, approved: false, resolved: false, receiptScan: null, receiptName: "receipt 1"});
+        let body = JSON.stringify({description: "travel expense", expense: 250, approved: false, resolved: false, receiptScan: null, receiptName: "receipt 1"});
 
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {            
@@ -105,7 +134,7 @@ function printJson(jsonObject) {
     // Test the employee
     let elem = document.getElementById('testEmployeeReceipt');
     if (elem)
-        elem.addEventListener('click', testFetchReceiptNoImage, true);
+        elem.addEventListener('click', testMakeReceiptNoImage, true);
 })();
 
 (function() {
@@ -146,8 +175,6 @@ function printJson(jsonObject) {
     }
 
     function testFetchEmployeeInfo() {
-        let employeeId = 1;
-
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {            
             if (this.readyState == 4) {
@@ -169,7 +196,7 @@ function printJson(jsonObject) {
         };
         
         // TODO extract employeeId out of the session
-        xhttp.open('GET', `../employee-info?employee_id=${employeeId}`, true);
+        xhttp.open('GET', "../employee-info", true);
         xhttp.send();
     }
 

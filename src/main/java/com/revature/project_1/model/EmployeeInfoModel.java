@@ -1,12 +1,7 @@
 package com.revature.project_1.model;
 
-import java.io.IOException;
-
-import org.apache.tomcat.jni.Address;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class EmployeeInfoModel {
 	private int id;

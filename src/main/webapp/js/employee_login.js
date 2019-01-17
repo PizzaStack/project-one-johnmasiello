@@ -8,28 +8,29 @@
         // console.log(username.value);
         // makeAJAXCall();
         if (username.value && password.value)
-            authenticateEmployee(username.value, password.value);
+            loginEmployee(username.value, password.value);
+        else
+            window.alert('Username or password is left blank');
 
             // to receive a response back as JSON, refer to the following link...
             // https://openclassrooms.com/en/courses/3523261-use-javascript-in-your-web-projects/3759266-extend-your-ajax-request
     };
 
-    function authenticateEmployee(username, password) {
+    function loginEmployee(username, password) {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
                 console.log(this.status);
                 switch (this.status) {
                     case 200:
-                        console.log("SUCCESS_SERVLET");
                         if (this.responseText == 'success')
-                            window.location.href='./employee_dashboard.html'
+                            window.location.href = 'employee_dashboard.html';
                         else
                             window.alert("Wrong username or password");
-                        break;
+                            break;
     
                     case 400:
-                    console.log("FAIL");
+                        console.log("FAIL");
                     break;
                     
                     case 500:
