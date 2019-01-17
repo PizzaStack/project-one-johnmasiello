@@ -15,24 +15,23 @@ import com.revature.project_1.model.LoginModel;
 
 import service.ExpenseReimbursementRequestService;
 
-@WebServlet(urlPatterns="/submit-reimbursement_request")
-public class ReimbursementSubmissionServlet extends HttpServlet {
+@WebServlet(urlPatterns="/manage-employee-reimbursement_request")
+public class ManageEmployeeReimbursementRequestsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String employeeId = req.getParameter("employeeId");
 		String pending = req.getParameter("pending");
+		
 		try (PrintWriter writer = resp.getWriter()) {
-			if (req.getSession(false) == null)
-				return;
-			LoginModel login = (LoginModel) req.getSession(false).getAttribute(EmployeeLoginServlet.LOGIN_ATTR);
-			int employeeId = login.getId();
+			int iEmployeeId = Integer.parseInt(employeeId);
 			ExpenseReimbursementRequestService service = new ExpenseReimbursementRequestService();
 			if (pending == null)
-				service.writeFetchedReimbursementsByEmployeeId(writer, employeeId);
+				service.writeFetchedReimbursementsByEmployeeId(writer, iEmployeeId);
 			else {
 				boolean bPending = Boolean.parseBoolean(pending);
-				service.writeFetchedReimbursementsByEmployeeId(writer, employeeId, bPending);
+				service.writeFetchedReimbursementsByEmployeeId(writer, iEmployeeId, bPending);
 			}
 		} finally {}
 	}
@@ -41,17 +40,27 @@ public class ReimbursementSubmissionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		 if (session != null) {
-			 LoginModel employeeLogin = (LoginModel) session.getAttribute(EmployeeLoginServlet.LOGIN_ATTR);
-			 int employeeId = employeeLogin.getId();
-			boolean success = false;
-			try (Reader src = req.getReader()){
-				success = new ExpenseReimbursementRequestService().createReimbursementRequest(src, employeeId);
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
+			 LoginModel managerLogin = (LoginModel) session.getAttribute(EmployeeLoginServlet.LOGIN_ATTR);
+			 int managerId = managerLogin.getId();
+			 String requestId = req.getParameter("requestId");
+			 String approved = req.getParameter("approved");
+			 boolean success = false;
+			 if (requestId != null && approved != null) {
+				try (Reader src = req.getReader()){
+					success = new ExpenseReimbursementRequestService().approveReimbursementRequest(
+							src, 
+							Integer.parseInt(requestId), 
+							Boolean.parseBoolean(approved), 
+							managerId);
+				} catch (IOException e) {
+					System.out.println(e.getMessage());
+				}
+			 }
 			try (PrintWriter writer = resp.getWriter()) {
 				writer.write(success ? "success" : "failure");
 			} finally {}
 		 }
 	}
+
+	
 }
