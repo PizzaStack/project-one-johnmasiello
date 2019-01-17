@@ -17,6 +17,7 @@ import com.revature.project_1.model.ReimbursementRequestModel;
 public class DummyTest {
 	private ReimbursementRequestModel modelDefined;
 	private ReimbursementRequestModel modelDummy;
+	private byte[] rawBytes = new byte[] {1,1,1,2,2,3};
 	@Before
 	public void init() {
 		modelDefined = new ReimbursementRequestModel.Builder()
@@ -25,6 +26,7 @@ public class DummyTest {
 				.withApproved(false)
 				.withResolved(false)
 				.withReceiptName("receipt 1")
+				.withReceiptScan(rawBytes)
 				.build();
 	}
 	@Test
@@ -41,5 +43,10 @@ public class DummyTest {
 		String json = "{\"email\": \"jmasgcc@gmail.com\", \"firstname\": \"John\", \"lastname\": \"Masiello\", \"residentAddress\": "
 				+ "{\"streetAddress\": \"3300 South Cooper St\", \"city\": \"Dallas\", \"zipcode\": \"76022\", \"state\": \"TX\"}}";
 		EmployeeInfoModel dummy = new ObjectMapper().readValue(json, EmployeeInfoModel.class);
+	}
+	
+	@Test
+	public void testStringAsByteArray() throws IOException {
+		Assert.assertArrayEquals(rawBytes, new ObjectMapper().convertValue("AQEBAgID", byte[].class));
 	}
 }
