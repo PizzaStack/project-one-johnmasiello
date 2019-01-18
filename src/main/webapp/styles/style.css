@@ -48,9 +48,27 @@
     border-style: dashed;
     border-color: #ccc;
     line-height: 150px;
-    text-align: center
+    text-align: center;
   }
   .upload-drop-zone.drop {
     color: #222;
     border-color: #222;
+  }
+
+  .dashboard_header {
+      margin-top: 40px;
+      margin-bottom: 50px;
+      text-align: center;
+  }
+
+  .fixedThumbs {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+  }
+
+  #newRequest {
+      color:white;
+      font-size: 20px;
+      margin: 50px, 50px;
   }

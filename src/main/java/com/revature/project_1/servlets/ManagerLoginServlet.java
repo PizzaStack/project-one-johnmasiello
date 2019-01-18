@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.revature.project_1.dao.EmployeeDao;
 import com.revature.project_1.dao.ManagerDao;
 import com.revature.project_1.model.LoginModel;
 
@@ -25,6 +26,9 @@ public class ManagerLoginServlet  extends HttpServlet{
 			return;
 		}
 		LoginModel login = new ManagerDao().authenticateLogin(username, password);
+		System.out.println(username);
+		System.out.println(password);
+		System.out.println(login != null);
 		
 		if (login != null) {
 			HttpSession session = req.getSession(true);
@@ -39,6 +43,5 @@ public class ManagerLoginServlet  extends HttpServlet{
 		HttpSession session = req.getSession(false);
 		if (session != null)
 			session.invalidate();
-		response.sendRedirect("/project-1/index.html");
 	}
 }

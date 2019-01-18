@@ -1,13 +1,13 @@
 (function () {
-    function authenticateEmployee(username, password) {
+    function authenticateManager(username, password) {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
                 switch (this.status) {
                     case 200:
-                    if (this.responseText != 'success')
-                    window.location.replace('../index.html');
-                    else {
+                        if (this.responseText != 'success')
+                        window.location.replace('../index.html');
+                        else {
                             onValidatedSession();
                         }
                         break;
@@ -23,14 +23,14 @@
             }
         };
         
-        xhttp.open('GET', '../validate-employee', true);
+        xhttp.open('GET', '../validate-manager', true);
         xhttp.send();
     }
-    authenticateEmployee();
+    authenticateManager();
 })();
 
 (function() {
-    function logoutEmployee(e) {
+    function logoutManager(e) {
         let result = window.confirm('Sure you want to log out?');
         if (result)
             logoutSession();
@@ -57,13 +57,13 @@
             }
         };
         
-        xhttp.open('GET', '../login-employee', true);
+        xhttp.open('GET', '../login-manager', true);
         xhttp.send();
     }
 
-    let elem = document.getElementById('employeeLogout');
+    let elem = document.getElementById('managerLogout');
     if (elem)
-        elem.addEventListener('click', logoutEmployee, true);
+        elem.addEventListener('click', logoutManager, true);
 })();
 
 function onValidatedSession() {
@@ -114,7 +114,7 @@ function onValidatedSession() {
             }
         };
         
-        xhttp.open('GET', '../employee-reimbursement-request', true);
+        xhttp.open('GET', '../manage-all-reimbursement-request', true);
         xhttp.send();
 }
 
@@ -162,7 +162,7 @@ function onShowOnly(pending) {
             }
         };
         
-        xhttp.open('GET', `../employee-reimbursement-request?pending=${pending}`, true);
+        xhttp.open('GET', `../manage-all-reimbursement-request?pending=${pending}`, true);
         xhttp.send();
 }
 

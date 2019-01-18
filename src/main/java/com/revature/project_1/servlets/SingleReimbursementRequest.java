@@ -11,24 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.ExpenseReimbursementRequestService;
 
-@WebServlet(urlPatterns="/manage-all-reimbursement-request")
-public class ManageAllReimbursementRequestsServlet extends HttpServlet {
+@WebServlet(urlPatterns="/view-single-reimbursement-request")
+public class SingleReimbursementRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String pending = req.getParameter("pending");
+		String requestId = req.getParameter("request_id");
+		if (requestId == null)
+			return;
 		
 		try (PrintWriter writer = resp.getWriter()) {
-			ExpenseReimbursementRequestService service = new ExpenseReimbursementRequestService();
-			if (pending == null)
-				service.writeAllFetchedReimbursements(writer);
-			else {
-				boolean bPending = Boolean.parseBoolean(pending);
-				service.writeAllFetchedReimbursements(writer, bPending);
-			}
+			int iRequestId = Integer.parseInt(requestId);
+			new ExpenseReimbursementRequestService().writeFetchedReimbursementById(writer, iRequestId);
 		} finally {}
 	}
-	
-	
 }

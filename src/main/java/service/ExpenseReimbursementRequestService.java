@@ -38,7 +38,6 @@ public class ExpenseReimbursementRequestService {
 		try {
 			System.out.println(mapper.writeValueAsString($));
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}});
 		new ObjectMapper().writeValue(writer, models);
