@@ -21,7 +21,7 @@ public class ManageEmployeeReimbursementRequestsServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String employeeId = req.getParameter("employeeId");
+		String employeeId = req.getParameter("employee_id");
 		String pending = req.getParameter("pending");
 		
 		try (PrintWriter writer = resp.getWriter()) {

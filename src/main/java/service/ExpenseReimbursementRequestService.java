@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.project_1.dao.EmployeeDao;
 import com.revature.project_1.dao.ManagerDao;
@@ -30,7 +31,16 @@ public class ExpenseReimbursementRequestService {
 	}
 	
 	public void writeFetchedReimbursementsByEmployeeId(PrintWriter writer, int id) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
 		List<ReimbursementRequestModel> models = new ArrayList<>(new EmployeeDao().queryAllReimbursementsByEmployeeId(id));
+		models.forEach(($)->{
+			System.out.println($);
+		try {
+			System.out.println(mapper.writeValueAsString($));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}});
 		new ObjectMapper().writeValue(writer, models);
 	}
 	

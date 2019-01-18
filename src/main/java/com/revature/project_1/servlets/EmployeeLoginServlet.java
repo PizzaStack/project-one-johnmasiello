@@ -41,6 +41,5 @@ public class EmployeeLoginServlet extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		if (session != null)
 			session.invalidate();
-		response.sendRedirect("/project-1/index.html");
 	}
 }

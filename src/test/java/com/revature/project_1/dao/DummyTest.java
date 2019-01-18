@@ -47,6 +47,7 @@ public class DummyTest {
 	
 	@Test
 	public void testStringAsByteArray() throws IOException {
+		// https://github.com/FasterXML/jackson-databind#tutorial-fancier-stuff-conversions
 		Assert.assertArrayEquals(rawBytes, new ObjectMapper().convertValue("AQEBAgID", byte[].class));
 	}
 }

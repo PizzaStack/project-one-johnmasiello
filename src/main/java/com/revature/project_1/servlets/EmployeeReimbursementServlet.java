@@ -15,8 +15,8 @@ import com.revature.project_1.model.LoginModel;
 
 import service.ExpenseReimbursementRequestService;
 
-@WebServlet(urlPatterns="/submit-reimbursement_request")
-public class ReimbursementSubmissionServlet extends HttpServlet {
+@WebServlet(urlPatterns="/employee-reimbursement-request")
+public class EmployeeReimbursementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override

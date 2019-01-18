@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EmployeeInfoModel {
 	private int id;
-	private String email;
+	private String email					= "N/A";
 	private String firstname;
 	private String lastname;
 	private AddressModel residentAddress;

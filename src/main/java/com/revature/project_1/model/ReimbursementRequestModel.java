@@ -15,11 +15,11 @@ public class ReimbursementRequestModel {
 	private double expense;
 	private LocalDate date;
 	private int employeeId;
-	private boolean approved;
-	private boolean resolved;
-	private int managerId;
+	private boolean approved		= false;
+	private boolean resolved		= false;
+	private int managerId  			= -1;
 	private byte[] receiptScan;
-	private String receiptName;
+	private String receiptName		= "N/A";
 	
 //	public ReimbursementRequestModel() {}
 	
