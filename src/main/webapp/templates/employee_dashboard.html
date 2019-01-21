@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reimbursement Pro</title>
+    <link rel="icon" href="../favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
@@ -46,7 +47,7 @@
                 <div class="col-md-12">
                 <h1 class='dashboard_header' id="employee_login">Employee DashBoard</h1>
                 <h4>Itemized Requests <button class="btn btn-primary btn-xs" id='newRequest'
-                        data-title="Edit" data-toggle="modal" data-target="#edit" >+</button></h4>
+                        data-title="Create" data-toggle="modal" data-target="#create" >+</button></h4>
                 <div class="table-responsive">
         
                         
@@ -58,8 +59,8 @@
                                 <th>Expense</th>
                                 <th>Image</th>
                                 <th>Description</th>
-                                <th>Approved</th>
-                                <th>Pending</th>
+                                <th>Status</th>
+                                <th>Created</th>
                                 <th>Employee Id</th>
                                 <th>Manager Id</th>
                                 <th>Update</th>
@@ -74,7 +75,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -84,26 +85,57 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for='expense' class="form-control" id='requestnumber'>#</label>
+                        <label for='expense' class="form-control" id='requestnumber-edit'>#</label>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id='requestexpense' name='expense' type="text" placeholder="expense">
+                        <input class="form-control" id='requestexpense-edit' name='expense' type="text" placeholder="expense">
                     </div>
                     <div class="form-group">
-                        <input class="form-control " id='requestdescription' type="text" placeholder="description">
+                        <input class="form-control " id='requestdescription-edit' type="text" placeholder="description">
                     </div>
                     <div class="form-group">
-                        <div class="upload-drop-zone" id="requestreceipt-drop-zone">
+                        <div class="upload-drop-zone" id="requestreceipt-drop-zone-edit">
                             + Drag your receipt photo here +
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer ">
-                    <button type="button" class="btn btn-primary btn-lg" id='requestsubmit' style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+                    <button type="button" class="btn btn-warning btn-lg" id='requestsubmit-edit' style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
                 </div>
             </div>
         </div>
         </div>
+
+        <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="create" aria-hidden="true" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"
+                                aria-hidden="true"></span></button>
+                        <h4 class="modal-title custom_align" id="Heading">New Request</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for='expense' class="form-control" id='requestnumber-create'>#</label>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id='requestexpense-create' name='expense' type="text" placeholder="expense">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control " id='requestdescription-create' type="text" placeholder="description">
+                        </div>
+                        <div class="form-group">
+                            <div class="upload-drop-zone" id="requestreceipt-drop-zone-create">
+                                + Drag your receipt photo here +
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-primary btn-lg" id='requestsubmit-create' style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Submit</button>
+                    </div>
+                </div>
+            </div>
+            </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -192,7 +191,7 @@ public class BaseDao {
 					.withId(rs.getInt("id"))
 					.withDescription(rs.getString("description"))
 					.withExpense(rs.getDouble("expense"))
-					.withDate(rs.getObject("date_created", LocalDate.class))
+					.withDate(rs.getString("date_created"))
 					.withEmployeeId(rs.getInt("employee_id"))
 					.withApproved(rs.getBoolean("approved"))
 					.withResolved(rs.getBoolean("resolved"))

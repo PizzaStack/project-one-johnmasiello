@@ -1,6 +1,5 @@
 package com.revature.project_1.model;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -13,7 +12,7 @@ public class ReimbursementRequestModel {
 	private int id;
 	private String description;
 	private double expense;
-	private LocalDate date;
+	private String date;
 	private int employeeId;
 	private boolean approved		= false;
 	private boolean resolved		= false;
@@ -21,11 +20,9 @@ public class ReimbursementRequestModel {
 	private byte[] receiptScan;
 	private String receiptName		= "N/A";
 	
-//	public ReimbursementRequestModel() {}
-	
 	@JsonCreator
 	private ReimbursementRequestModel(@JsonProperty("id")int id, @JsonProperty("description")String description, 
-			@JsonProperty("expense")double expense, @JsonProperty("date")LocalDate date, 
+			@JsonProperty("expense")double expense, @JsonProperty("date")String date, 
 			@JsonProperty("employeeId")int employeeId, @JsonProperty("approved")boolean approved, 
 			@JsonProperty("resolved")boolean resolved, @JsonProperty("managerId")int managerId, 
 			@JsonProperty("receiptScan")byte[] receiptScan, @JsonProperty("receiptName")String receiptName) {
@@ -45,7 +42,7 @@ public class ReimbursementRequestModel {
 		private int id;
 		private String description;
 		private double expense;
-		private LocalDate date;
+		private String date;
 		private int employeeId;
 		private boolean approved;
 		private boolean resolved;
@@ -68,7 +65,7 @@ public class ReimbursementRequestModel {
 			return this;
 		}
 
-		public Builder withDate(LocalDate date) {
+		public Builder withDate(String date) {
 			this.date = date;
 			return this;
 		}
@@ -108,6 +105,13 @@ public class ReimbursementRequestModel {
 		}
 	}
 
+	public void resetOnBasicCreate() {
+		approved = false;
+		resolved = false;
+		managerId = -1;
+		receiptName = "N/A";
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -132,11 +136,11 @@ public class ReimbursementRequestModel {
 		this.expense = expense;
 	}
 
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

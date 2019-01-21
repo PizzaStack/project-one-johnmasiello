@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.revature.project_1.dao.EmployeeDao;
 import com.revature.project_1.dao.ManagerDao;
 import com.revature.project_1.model.LoginModel;
 

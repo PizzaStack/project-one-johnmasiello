@@ -98,45 +98,62 @@ public class EmployeeDao extends BaseDao {
 	@Nullable
 	public ReimbursementRequestModel upsertReimbursementRequest(ReimbursementRequestModel req) {
 		Connection connection = ConnectionHelper.getinstance().getConnection();
+		boolean noId = req.getId() <= 0;
+		boolean receiptScanNotNull = req.getReceiptScan() != null;
 		try (PreparedStatement ps = connection.prepareStatement(new StringBuilder()
-				.append("INSERT INTO expense_requests(description, expense, ")
+				.append(noId ? "INSERT INTO expense_requests(" :
+					"INSERT INTO expense_requests(id, ")
+				.append("description, expense, ")
 				.append("employee_id, approved, resolved, manager_id, ")
-				.append("receipt_name, receipt_scan) VALUES (?,?,?,?,?,?,?,?) ")
+				.append(receiptScanNotNull ? "receipt_name, receipt_scan) " :
+					"receipt_name) ")
+				.append(noId ? "VALUES (" : "VALUES (?,")
+				.append("?,?,?,?,?,?,? ")
+				.append(receiptScanNotNull ? ",?) " : 
+					") ")
 				.append("ON CONFLICT ON CONSTRAINT requests_pkey ")
 				.append("DO UPDATE SET description=?, expense=?, ")
 				.append("employee_id=?, approved=?, resolved=?, manager_id=?,")
-				.append("receipt_name=?, receipt_scan=? WHERE expense_requests.id = ?")
+				.append(receiptScanNotNull ? "receipt_name=?, receipt_scan=? " :
+					"receipt_name=? ")
+				.append("WHERE expense_requests.id = ?")
 				.toString(), Statement.RETURN_GENERATED_KEYS)) {
 			
-			ps.setString(1, req.getDescription());
-			ps.setDouble(2, req.getExpense());
-			ps.setInt(3, req.getEmployeeId());
-			ps.setBoolean(4, req.isApproved());
-			ps.setBoolean(5, req.isResolved());
-			ps.setInt(6, req.getManagerId());
-			ps.setString(7, req.getReceiptName());
-			ps.setBytes(8, req.getReceiptScan());
+			int p = 1;
+			if (!noId)
+				ps.setInt(p++, req.getId());
+			ps.setString(p++, req.getDescription());
+			ps.setDouble(p++, req.getExpense());
+			ps.setInt(p++, req.getEmployeeId());
+			ps.setBoolean(p++, req.isApproved());
+			ps.setBoolean(p++, req.isResolved());
+			ps.setInt(p++, req.getManagerId());
+			ps.setString(p++, req.getReceiptName());
+			if (receiptScanNotNull)
+				ps.setBytes(p++, req.getReceiptScan());
 			
-			ps.setString(9, req.getDescription());
-			ps.setDouble(10, req.getExpense());
-			ps.setInt(11, req.getEmployeeId());
-			ps.setBoolean(12, req.isApproved());
-			ps.setBoolean(13, req.isResolved());
-			ps.setInt(14, req.getManagerId());
-			ps.setString(15, req.getReceiptName());
-			ps.setBytes(16, req.getReceiptScan());
-			ps.setInt(17, req.getId());
+			ps.setString(p++, req.getDescription());
+			ps.setDouble(p++, req.getExpense());
+			ps.setInt(p++, req.getEmployeeId());
+			ps.setBoolean(p++, req.isApproved());
+			ps.setBoolean(p++, req.isResolved());
+			ps.setInt(p++, req.getManagerId());
+			ps.setString(p++, req.getReceiptName());
+			if (receiptScanNotNull)
+				ps.setBytes(p++, req.getReceiptScan());
+			ps.setInt(p++, req.getId());
 			
 			if (ps.executeUpdate() <= 0)
 				return null;
 			ResultSet keys = ps.getGeneratedKeys();
 			if (!keys.next() || keys.getInt("id") == NO_LOGIN_ID)
 				return null;
-			req.setId(keys.getInt("id"));
+			if (req.getId() <= 0)
+				req.setId(keys.getInt("id"));
 			return req;
 			
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.out.println("upsert reimbursement request: " + e.getMessage());
 		} finally {
 			ConnectionHelper.getinstance().closeConnection();
 		}

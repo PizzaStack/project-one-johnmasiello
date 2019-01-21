@@ -43,14 +43,10 @@ public class EmployeeReimbursementServlet extends HttpServlet {
 		 if (session != null) {
 			 LoginModel employeeLogin = (LoginModel) session.getAttribute(EmployeeLoginServlet.LOGIN_ATTR);
 			 int employeeId = employeeLogin.getId();
-			boolean success = false;
-			try (Reader src = req.getReader()){
-				success = new ExpenseReimbursementRequestService().createReimbursementRequest(src, employeeId);
+			try (Reader src = req.getReader(); PrintWriter writer = resp.getWriter();){
+				new ExpenseReimbursementRequestService().createReimbursementRequest(src, writer, employeeId);
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
-			}
-			try (PrintWriter writer = resp.getWriter()) {
-				writer.write(success ? "success" : "failure");
 			} finally {}
 		 }
 	}

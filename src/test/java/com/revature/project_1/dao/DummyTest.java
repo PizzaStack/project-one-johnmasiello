@@ -50,4 +50,12 @@ public class DummyTest {
 		// https://github.com/FasterXML/jackson-databind#tutorial-fancier-stuff-conversions
 		Assert.assertArrayEquals(rawBytes, new ObjectMapper().convertValue("AQEBAgID", byte[].class));
 	}
+	
+	@Test
+	public void testJSonReimbursementRequest() throws IOException {
+		String json = "{\"id\": \"1\", \"description\": \"food\", \"expense\": \"22.22\", \"approved\": "
+				+ "\"false\", \"resolved\": \"false\", \"receiptName\": \"abcd\"}";
+		ReimbursementRequestModel dummy = new ObjectMapper().readValue(json, ReimbursementRequestModel.class);
+		System.out.println(dummy);
+	}
 }
