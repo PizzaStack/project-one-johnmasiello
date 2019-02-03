@@ -1,4 +1,4 @@
-package service;
+package com.revature.project_1.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,7 +46,7 @@ public class ExpenseReimbursementRequestService {
 	}
 	
 	public void writeAllFetchedReimbursements(PrintWriter writer) throws IOException {
-		List<ReimbursementRequestModel> models = new ArrayList<>(new EmployeeDao().queryAllPendingReimbursements());
+		List<ReimbursementRequestModel> models = new ArrayList<>(new EmployeeDao().queryAllReimbursements());
 		new ObjectMapper().writeValue(writer, models);
 	}
 	

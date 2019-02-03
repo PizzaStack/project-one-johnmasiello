@@ -101,7 +101,7 @@ public class BaseDao {
 		Collection<ReimbursementRequestModel> reis = new LinkedList<>();
 		Connection connection = ConnectionHelper.getinstance().getConnection();
 		try (PreparedStatement ps = connection.prepareStatement(
-				"SELECT * FROM expense_requests WHERE employee_id = ?")) {
+				"SELECT * FROM expense_requests WHERE employee_id = ? ORDER BY expense_requests.id")) {
 			ps.setInt(1, employee_id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
@@ -122,7 +122,7 @@ public class BaseDao {
 		Connection connection = ConnectionHelper.getinstance().getConnection();
 		try (PreparedStatement ps = connection.prepareStatement(
 				new StringBuilder("SELECT * FROM expense_requests WHERE employee_id = ?")
-				.append(" AND resolved = ?").toString())) {
+				.append(" AND resolved = ? ORDER BY expense_requests.id").toString())) {
 			ps.setInt(1, employee_id);
 			ps.setBoolean(2, resolved);
 			ResultSet rs = ps.executeQuery();
@@ -152,7 +152,7 @@ public class BaseDao {
 		Collection<ReimbursementRequestModel> reis = new LinkedList<>();
 		Connection connection = ConnectionHelper.getinstance().getConnection();
 		try (PreparedStatement ps = connection.prepareStatement(
-				"SELECT * FROM expense_requests WHERE resolved = ?")) {
+				"SELECT * FROM expense_requests WHERE resolved = ? ORDER BY expense_requests.id")) {
 			ps.setBoolean(1, resolved);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
@@ -172,7 +172,7 @@ public class BaseDao {
 		Connection connection = ConnectionHelper.getinstance().getConnection();
 		try (Statement statement = connection.createStatement()) {
 			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM expense_requests");
+					"SELECT * FROM expense_requests ORDER BY expense_requests.id");
 			while (rs.next())
 				reis.add(readReimbursementRequest(rs));
 			

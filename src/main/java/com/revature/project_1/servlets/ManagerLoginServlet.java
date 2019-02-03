@@ -25,9 +25,6 @@ public class ManagerLoginServlet  extends HttpServlet{
 			return;
 		}
 		LoginModel login = new ManagerDao().authenticateLogin(username, password);
-		System.out.println(username);
-		System.out.println(password);
-		System.out.println(login != null);
 		
 		if (login != null) {
 			HttpSession session = req.getSession(true);

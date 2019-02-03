@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.revature.project_1.model.LoginModel;
-
-import service.ExpenseReimbursementRequestService;
+import com.revature.project_1.service.ExpenseReimbursementRequestService;
 
 @WebServlet(urlPatterns="/manage-employee-reimbursement-request")
 public class ManageEmployeeReimbursementRequestsServlet extends HttpServlet {
@@ -44,23 +43,18 @@ public class ManageEmployeeReimbursementRequestsServlet extends HttpServlet {
 			 int managerId = managerLogin.getId();
 			 String requestId = req.getParameter("requestId");
 			 String approved = req.getParameter("approved");
-			 boolean success = false;
 			 if (requestId != null && approved != null) {
-				try (Reader src = req.getReader()){
-					success = new ExpenseReimbursementRequestService().approveReimbursementRequest(
+				try (Reader src = req.getReader(); PrintWriter writer = resp.getWriter();){
+					if (new ExpenseReimbursementRequestService().approveReimbursementRequest(
 							src, 
 							Integer.parseInt(requestId), 
 							Boolean.parseBoolean(approved), 
-							managerId);
+							managerId))
+						writer.write(String.valueOf(managerId));
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
-				}
+				} finally {}
 			 }
-			try (PrintWriter writer = resp.getWriter()) {
-				writer.write(success ? "success" : "failure");
-			} finally {}
 		 }
 	}
-
-	
 }

@@ -45,7 +45,7 @@
                 
                 
                 <div class="col-md-12">
-                <h1 class='dashboard_header' id="employee_login">Manager DashBoard</h1>
+                <h1 class='dashboard_header' id="manager_login">Manager DashBoard</h1>
                 <h4>Itemized Requests</h4>
                 <div class="table-responsive">
         
@@ -58,11 +58,12 @@
                                 <th>Expense</th>
                                 <th>Image</th>
                                 <th>Description</th>
-                                <th>Approved</th>
-                                <th>Pending</th>
+                                <th>Status</th>
+                                <th>Created</th>
                                 <th>Employee Id</th>
                                 <th>Manager Id</th>
-                                <th>Update</th>
+                                <th>Approve</th>
+                                <th>Deny</th>
                                 </tr>
                             </thead>
                         <tbody id='myRequestTableBody'>
@@ -74,32 +75,32 @@
             </div>
         </div>
 
-        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"
                             aria-hidden="true"></span></button>
-                    <h4 class="modal-title custom_align" id="Heading">Edit Your Request</h4>
+                    <h4 class="modal-title custom_align" id="Heading">Edit Original Request</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for='expense' class="form-control" id='requestnumber'>#</label>
+                        <label for='expense' class="form-control" id='requestnumber-edit'>#</label>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id='requestexpense' name='expense' type="text" placeholder="expense">
+                        <input class="form-control" id='requestexpense-edit' name='expense' type="text" placeholder="expense">
                     </div>
                     <div class="form-group">
-                        <input class="form-control " id='requestdescription' type="text" placeholder="description">
+                        <input class="form-control " id='requestdescription-edit' type="text" placeholder="description">
                     </div>
                     <div class="form-group">
-                        <div class="upload-drop-zone" id="requestreceipt-drop-zone">
+                        <div class="upload-drop-zone" id="requestreceipt-drop-zone-edit">
                             + Drag your receipt photo here +
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer ">
-                    <button type="button" class="btn btn-primary btn-lg" id='requestsubmit' style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+                    <button type="button" class="btn btn-warning btn-lg" id='requestsubmit-edit' style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
                 </div>
             </div>
         </div>
@@ -109,6 +110,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src='../js/manager_dashboard_session.js'></script>
+
 
 </body>
 </html>

@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.revature.project_1.model.LoginModel;
-
-import service.ExpenseReimbursementRequestService;
+import com.revature.project_1.service.ExpenseReimbursementRequestService;
 
 @WebServlet(urlPatterns="/employee-reimbursement-request")
 public class EmployeeReimbursementServlet extends HttpServlet {

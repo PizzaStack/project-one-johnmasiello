@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 
 import org.junit.Test;
 
+import com.revature.project_1.service.ExpenseReimbursementRequestService;
+
 public class TestService {
 	@Test
 	public void testWriteCollectionReimbursementRequests() throws IOException {

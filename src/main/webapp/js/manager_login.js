@@ -5,8 +5,6 @@
 
     // https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link
     function managerClicksLogin() {
-        // console.log(username.value);
-        // makeAJAXCall();
         if (username.value && password.value)
             loginManager(username.value, password.value);
         else
@@ -20,7 +18,6 @@
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
-                console.log(this.status);
                 switch (this.status) {
                     case 200:
                         if (this.responseText == 'success')
@@ -39,8 +36,6 @@
                 }
             }
         };
-        console.log(username);
-        console.log(password);
         xhttp.open('GET', `../login-manager?username=${username}&password=${password}`, true);
         xhttp.send();
     }

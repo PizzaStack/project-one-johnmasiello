@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.ExpenseReimbursementRequestService;
+import com.revature.project_1.service.ExpenseReimbursementRequestService;
 
 @WebServlet(urlPatterns="/manage-all-reimbursement-request")
 public class ManageAllReimbursementRequestsServlet extends HttpServlet {

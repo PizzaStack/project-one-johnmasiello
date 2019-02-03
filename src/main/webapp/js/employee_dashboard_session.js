@@ -126,6 +126,7 @@ function onShowOnly(pending) {
         
         let endpoint = pending === undefined ? '../employee-reimbursement-request' :
             `../employee-reimbursement-request?pending=${pending}`;
+        // xhttp.responseType='json';
         xhttp.open('GET', endpoint, true);
         xhttp.send();
 }
